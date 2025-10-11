@@ -4,16 +4,14 @@ package Modelo.dto;
 public class Doctores {
     private int idDoctor;
     private String Nombre;
-    private String Apellidos;
-    private int idEspecialidad;
+    private String Especialidad;
     private String Email;
     private String Telefono;
 
-    public Doctores(int idDoctor, String Nombre, String Apellidos, int idEspecialidad, String Email, String Telefono) {
+    public Doctores(int idDoctor, String Nombre, String Especialidad, String Email, String Telefono) {
         this.idDoctor = idDoctor;
         this.Nombre = Nombre;
-        this.Apellidos = Apellidos;
-        this.idEspecialidad = idEspecialidad;
+        this.Especialidad = Especialidad;
         this.Email = Email;
         this.Telefono = Telefono;
     }
@@ -34,20 +32,12 @@ public class Doctores {
         this.Nombre = Nombre;
     }
 
-    public String getApellidos() {
-        return Apellidos;
+    public String getEspecialidad() {
+        return Especialidad;
     }
 
-    public void setApellidos(String Apellidos) {
-        this.Apellidos = Apellidos;
-    }
-
-    public int getIdEspecialidad() {
-        return idEspecialidad;
-    }
-
-    public void setIdEspecialidad(int idEspecialidad) {
-        this.idEspecialidad = idEspecialidad;
+    public void setIdEspecialidad(String Especialidad) {
+        this.Especialidad = Especialidad;
     }
 
     public String getEmail() {

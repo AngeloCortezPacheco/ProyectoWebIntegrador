@@ -19,6 +19,16 @@ public class LibroReclamaciones {
         this.detalles = detalles;
     }
 
+    public LibroReclamaciones(String Nombre, String domcilio, int dni, String telefono, String mail, String detalles) {
+        this.Nombre = Nombre;
+        this.domcilio = domcilio;
+        this.dni = dni;
+        this.telefono = telefono;
+        this.mail = mail;
+        this.detalles = detalles;
+    }    
+    
+
     public int getIdreclamo() {
         return idreclamo;
     }

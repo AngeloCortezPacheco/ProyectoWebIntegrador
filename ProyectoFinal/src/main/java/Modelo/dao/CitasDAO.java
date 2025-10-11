@@ -1,6 +1,7 @@
 package Modelo.dao;
 
 import Modelo.dto.Citas;
+import Servicios.ConectaDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,18 +10,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class CitasDAO {
-    Connection cnx=null;
-    PreparedStatement ps;
-    ResultSet rs;
-    
+        
     public List<Citas> getList(){
+        Connection cnx=ConectaDB.getConection();
         String sql= "SELECT cit.idcitas, pac.nombre as NombrePaciente, cit.fecha_cita, cit.hora_cita, cit.motivo_cita " +
                     "from citas cit " +
                     "inner join pacientes pac on cit.dniPaciente = pac.dniPaciente ";
         List<Citas> lista=null;
         try{
-            ps=cnx.prepareStatement(sql);
-            rs=ps.executeQuery();
+            PreparedStatement ps=cnx.prepareStatement(sql);
+            ResultSet rs=ps.executeQuery();
             lista= new LinkedList<>();
             while(rs.next()){
                 Citas cita= new Citas(
@@ -41,10 +40,11 @@ public class CitasDAO {
         return lista;
     }
     
-    public void insertPost(Citas cita){
+    public void postCitas(Citas cita){
+        Connection cnx=ConectaDB.getConection();
         String sql="INSERT INTO citas(dniPaciente,fecha_cita,hora_cita,motivo_cita) VALUES(?,?,?,?)";        
         try{
-            ps=cnx.prepareStatement(sql);
+            PreparedStatement ps=cnx.prepareStatement(sql);
             ps.setInt(1, cita.getDniPaciente());
             ps.setString(2, cita.getFechaCita());
             ps.setString(3, cita.getHoraCita());
