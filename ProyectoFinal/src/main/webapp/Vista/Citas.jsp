@@ -1,8 +1,3 @@
-<%-- 
-    Document   : Principal
-    Created on : 5 set. 2025, 9:44:30 p. m.
-    Author     : EQUIPO
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hospital General - Reserva de Citas</title>
+        <title>Hospital San Jose - Reserva de Citas</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <style>
             body {

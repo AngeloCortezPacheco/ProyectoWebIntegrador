@@ -6,16 +6,22 @@ package Modelo.dto;
 
 public class Citas {
     private int idCItas;
-    private int idPaciente;
-    private int idDoctor;
+    private String Paciente;
+    private int dniPaciente;
     private String fechaCita;
     private String horaCita;
     private String text;
 
-    public Citas(int idCItas, int idPaciente, int idDoctor, String fechaCita, String horaCita, String text) {
+    public Citas(int idCItas, String Paciente, String fechaCita, String horaCita, String text) {
         this.idCItas = idCItas;
-        this.idPaciente = idPaciente;
-        this.idDoctor = idDoctor;
+        this.Paciente = Paciente;
+        this.fechaCita = fechaCita;
+        this.horaCita = horaCita;
+        this.text = text;
+    }
+
+    public Citas(int dniPaciente, String fechaCita, String horaCita, String text) {
+        this.dniPaciente = dniPaciente;
         this.fechaCita = fechaCita;
         this.horaCita = horaCita;
         this.text = text;
@@ -29,20 +35,12 @@ public class Citas {
         this.idCItas = idCItas;
     }
 
-    public int getIdPaciente() {
-        return idPaciente;
+    public String getPaciente() {
+        return Paciente;
     }
 
-    public void setIdPaciente(int idPaciente) {
-        this.idPaciente = idPaciente;
-    }
-
-    public int getIdDoctor() {
-        return idDoctor;
-    }
-
-    public void setIdDoctor(int idDoctor) {
-        this.idDoctor = idDoctor;
+    public void setPaciente(String Paciente) {
+        this.Paciente = Paciente;
     }
 
     public String getFechaCita() {
@@ -68,8 +66,17 @@ public class Citas {
     public void setText(String text) {
         this.text = text;
     }
+
+    public int getDniPaciente() {
+        return dniPaciente;
+    }
+
+    public void setDniPaciente(int dniPaciente) {
+        this.dniPaciente = dniPaciente;
+    }
     
     
+
     
     
 }
