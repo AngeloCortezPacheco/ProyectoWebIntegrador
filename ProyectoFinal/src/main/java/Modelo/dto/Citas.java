@@ -4,15 +4,21 @@
  */
 package Modelo.dto;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class Citas {
     private int idCItas;
     private String Paciente;
     private int dniPaciente;
-    private String fechaCita;
-    private String horaCita;
+    private Date fechaCita;
+    private Time horaCita;
     private String text;
 
-    public Citas(int idCItas, String Paciente, String fechaCita, String horaCita, String text) {
+    public Citas() {
+    }
+    
+    public Citas(int idCItas, String Paciente, Date fechaCita, Time horaCita, String text) {
         this.idCItas = idCItas;
         this.Paciente = Paciente;
         this.fechaCita = fechaCita;
@@ -20,7 +26,7 @@ public class Citas {
         this.text = text;
     }
 
-    public Citas(int dniPaciente, String fechaCita, String horaCita, String text) {
+    public Citas(int dniPaciente, Date fechaCita, Time horaCita, String text) {
         this.dniPaciente = dniPaciente;
         this.fechaCita = fechaCita;
         this.horaCita = horaCita;
@@ -43,22 +49,22 @@ public class Citas {
         this.Paciente = Paciente;
     }
 
-    public String getFechaCita() {
+    public Date getFechaCita() {
         return fechaCita;
     }
 
-    public void setFechaCita(String fechaCita) {
+    public void setFechaCita(Date fechaCita) {
         this.fechaCita = fechaCita;
     }
 
-    public String getHoraCita() {
+    public Time getHoraCita() {
         return horaCita;
     }
 
-    public void setHoraCita(String horaCita) {
+    public void setHoraCita(Time horaCita) {
         this.horaCita = horaCita;
     }
-
+    
     public String getText() {
         return text;
     }

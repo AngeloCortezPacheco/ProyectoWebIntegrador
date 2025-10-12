@@ -95,43 +95,36 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-blue-600">Formulario de Reserva de Cita</h2>
                 <div class="form-container max-w-3xl mx-auto bg-white p-8">
-                    <form id="appointmentForm">
+                    <form id="appointmentForm" action="<%=request.getContextPath()%>/ServeletRegistroCitas" method="POST">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Nombre Completo</label>
-                                <input type="text" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="text" name="fullname" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Número de Teléfono</label>
-                                <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="tel" name="telefono" id="phone" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="email" name="mail" id="email" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Fecha de Cita</label>
-                                <input type="date" id="date" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="date" name="fechacita" id="date" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Hora de Cita</label>
-                                <input type="time" id="time" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="time" name="horacita" id="time" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700">Especialidad Médica</label>
-                                <select id="specialty" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
-                                    <option value="">Seleccionar Especialidad</option>
-                                    <option value="general">Medicina General</option>
-                                    <option value="pediatria">Pediatría</option>
-                                    <option value="cardiology">Cardiología</option>
-                                    <option value="dermatology">Dermatología</option>
-                                    <option value="oncology">Oncología</option>
-                                </select>
+                                <label class="block text-sm font-medium text-gray-700">DNI</label>
+                                <input type="number" name="dni" id="dni" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required placeholder="Ej: 12345678">
                             </div>
                         </div>
                         <div class="mt-6">
                             <label class="block text-sm font-medium text-gray-700">Motivo de la Cita</label>
-                            <textarea id="reason" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="3" required></textarea>
+                            <textarea id="reason" name="razon" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="3" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary text-white px-8 py-3 rounded-full mt-8 w-full text-lg font-semibold">Reservar Cita</button>
                     </form>
@@ -200,7 +193,7 @@
         </footer>
 
         <script>
-            // Mobile menu toggle
+            // menu de moviles toggle
             const mobileBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             mobileBtn.addEventListener('click', () => {
@@ -217,12 +210,6 @@
                 });
             });
 
-            // Form submission
-            document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('¡Cita reservada exitosamente! Te contactaremos pronto con la confirmación.');
-            });
-
             // Fade in animation on scroll
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -232,6 +219,31 @@
                 });
             });
             document.querySelectorAll('.step-card, .faq-card').forEach(card => observer.observe(card));
+            
+      
+        // Seleccionamos el campo de entrada del DNI usando su ID
+        const dniInput = document.getElementById('dni');
+
+        // Añadimos un "escuchador" de eventos que se activa cada vez que el usuario teclea
+        dniInput.addEventListener('input', function() {
+            // Obtenemos el valor actual del campo
+            let valor = this.value;
+
+            // Definimos la longitud máxima permitida
+            const maxLength = 8;
+
+            // Verificamos si la longitud del valor actual supera el máximo
+            if (valor.length > maxLength) {
+                // Si es más largo, lo "cortamos" para que solo contenga los primeros 'maxLength' caracteres
+                this.value = valor.slice(0, maxLength);
+            }
+        });
+
+        // Opcional: Evitar que la rueda del mouse cambie el número
+        dniInput.addEventListener('wheel', function(event) {
+            event.preventDefault();
+        });
+
         </script>
     </body>
 </html>

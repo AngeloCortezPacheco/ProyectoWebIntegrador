@@ -25,8 +25,8 @@ public class CitasDAO {
                 Citas cita= new Citas(
                         rs.getInt("idcitas"), 
                         rs.getString("NombrePaciente"), 
-                        rs.getString("fecha_cita"), 
-                        rs.getString("hora_cita"),
+                        rs.getDate("fecha_cita"), 
+                        rs.getTime("hora_cita"),
                         rs.getString("motivo_cita") );
                lista.add(cita);
             }
@@ -46,8 +46,8 @@ public class CitasDAO {
         try{
             PreparedStatement ps=cnx.prepareStatement(sql);
             ps.setInt(1, cita.getDniPaciente());
-            ps.setString(2, cita.getFechaCita());
-            ps.setString(3, cita.getHoraCita());
+            ps.setDate(2, cita.getFechaCita());
+            ps.setTime(3, cita.getHoraCita());
             ps.setString(4, cita.getText());
             ps.executeUpdate();
             System.out.println("registrado");
