@@ -18,7 +18,7 @@ public class PacientesDAO {
             ps=cnx.prepareStatement(sql);
             ps.setInt(1, paciente.getIdPaciente());
             ps.setString(2, paciente.getNombre());
-            ps.setString(3, paciente.getFechaNacimiento());
+            ps.setDate(3, paciente.getFechaNacimiento());
             ps.setString(4, paciente.getGenero());
             ps.setString(5, paciente.getTelefono());
             ps.setString(6, paciente.getEmail());

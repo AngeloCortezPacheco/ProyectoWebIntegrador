@@ -89,23 +89,23 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-blue-600">Formulario de Registro de Paciente</h2>
                 <div class="form-container max-w-3xl mx-auto bg-white p-8">
-                    <form id="patientRegistrationForm">
+                    <form id="patientRegistrationForm" action="<%=request.getContextPath()%>/ServeletRegistroPaciente">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Nombre Completo *</label>
-                                <input type="text" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="text" name="nombreCompleto" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Número de DNI o ID *</label>
-                                <input type="text" id="dni" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="number" name="dniPaciente" id="dni" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Fecha de Nacimiento *</label>
-                                <input type="date" id="birthDate" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="date" name="fechaNacimiento" id="birthDate" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Género *</label>
-                                <select id="gender" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <select id="gender" name="genero" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                                     <option value="">Seleccionar Género</option>
                                     <option value="masculino">Masculino</option>
                                     <option value="femenino">Femenino</option>
@@ -114,23 +114,19 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Número de Teléfono *</label>
-                                <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="tel" name="telefonoPaciente" id="phone" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Correo Electrónico *</label>
-                                <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                                <input type="email" name="mailPaciente" id="email" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700">Dirección Completa</label>
-                                <textarea id="address" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="2" placeholder="Incluye calle, número, distrito y ciudad"></textarea>
-                            </div>
-                            <div class="md:col-span-2">
-                                <label class="block text-sm font-medium text-gray-700">Contacto de Emergencia (Nombre y Teléfono)</label>
-                                <input type="text" id="emergencyContact" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" placeholder="Ej: Juan Pérez - 987654321">
+                                <textarea id="address" name="ubicacion" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="2" placeholder="Incluye calle, número, distrito y ciudad"></textarea>
                             </div>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700">Alergias o Condiciones Médicas Preexistentes (Opcional)</label>
-                                <textarea id="medicalHistory" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="3" placeholder="Describe cualquier alergia, enfermedad crónica o medicamento actual"></textarea>
+                                <textarea id="medicalHistory" name="historialMedico" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="3" placeholder="Describe cualquier alergia, enfermedad crónica o medicamento actual"></textarea>
                             </div>
                         </div>
                         <div class="mt-6 text-center">
@@ -165,7 +161,7 @@
             });
 
 
-            document.getElementById('patientRegistrationForm').addEventListener('submit', function(e) {
+            /*document.getElementById('patientRegistrationForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 
                 // Simulate form validation and submission (in a real app, send to server via AJAX or form action)
@@ -182,7 +178,30 @@
             window.addEventListener('load', () => {
                 document.querySelector('.hero-bg h1').classList.add('fade-in');
                 document.querySelector('.hero-bg p').classList.add('fade-in');
-            });
+            });*/
+            
+            // Seleccionamos el campo de entrada del DNI usando su ID
+        const dniInput = document.getElementById('dni');
+
+        // Añadimos un "escuchador" de eventos que se activa cada vez que el usuario teclea
+        dniInput.addEventListener('input', function() {
+            // Obtenemos el valor actual del campo
+            let valor = this.value;
+
+            // Definimos la longitud máxima permitida
+            const maxLength = 8;
+
+            // Verificamos si la longitud del valor actual supera el máximo
+            if (valor.length > maxLength) {
+                // Si es más largo, lo "cortamos" para que solo contenga los primeros 'maxLength' caracteres
+                this.value = valor.slice(0, maxLength);
+            }
+        });
+
+        // Opcional: Evitar que la rueda del mouse cambie el número
+        dniInput.addEventListener('wheel', function(event) {
+            event.preventDefault();
+        });
         </script>
     </body>
 </html>

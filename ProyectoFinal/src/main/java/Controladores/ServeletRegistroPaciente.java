@@ -1,21 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package Controladores;
 
-import Modelo.dao.CitasDAO;
-import Modelo.dto.Citas;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.Time;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "ServeletRegistroCitas", urlPatterns = {"/ServeletRegistroCitas"})
-public class ServeletRegistroCitas extends HttpServlet {
+/**
+ *
+ * @author EQUIPO
+ */
+@WebServlet(name = "ServeletRegistroPaciente", urlPatterns = {"/ServeletRegistroPaciente"})
+public class ServeletRegistroPaciente extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -24,10 +36,10 @@ public class ServeletRegistroCitas extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServeletRegistroCitas</title>");
+            out.println("<title>Servlet ServeletRegistroPaciente</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServeletRegistroCitas at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServeletRegistroPaciente at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,44 +71,16 @@ public class ServeletRegistroCitas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         
-        String nombreCompleto = request.getParameter("fullname");
-        String telefono = request.getParameter("telefono");
-        String mail = request.getParameter("mail");
-        String fechaCita = request.getParameter("fechacita");
-        String horaCita = request.getParameter("horacita");
-        String dniStr = request.getParameter(request.getParameter("dni"));
-        String motivoCita = request.getParameter("razon");
-
-        Date fechaSQL = Date.valueOf(fechaCita); // Convierte "yyyy-MM-dd" a un objeto Date
-        Time horaSQL = Time.valueOf(horaCita + ":00"); // Convierte "HH:mm" a "HH:mm:ss" y luego a un objeto Time
-    
+        String nombrePaciente=request.getParameter("nombreCompleto");
+        String dniStr=request.getParameter("dniPaciente");
+        String fecha=request.getParameter("fechaNacimiento");
+        String genero=request.getParameter("genero");
+        String telefono=request.getParameter("telefonoPaciente");
+        String mail=request.getParameter("mailPaciente");
+        String ubicacion=request.getParameter("ubicacion");
+        String historial=request.getParameter("historialMedico");
         
-        if (dniStr == null || dniStr.trim().length() != 8) {
-            // Si el DNI es inválido, redirigimos a una página de error
-            response.sendRedirect("error.jsp?msg=DNI_invalido");
-            return;
-        };
-        
-        int dniPaciente=Integer.parseInt(dniStr);
-
-
-        Citas nuevaCita = new Citas();
-        nuevaCita.setDniPaciente(dniPaciente);
-        nuevaCita.setFechaCita(fechaSQL);
-        nuevaCita.setHoraCita(horaSQL);
-        nuevaCita.setText(motivoCita);
-        
-        CitasDAO citaDAO=new CitasDAO();
-        citaDAO.postCitas(nuevaCita);
-        
-        HttpSession session=request.getSession();
-        
-        session.setAttribute("mensajeCita", "LA CITA FUE GUARDADA CORRECTAMENTE");
-        
-        response.sendRedirect(request.getContextPath() + "/Vista/PaginaPrincipal.jsp");
-
     }
 
     /**

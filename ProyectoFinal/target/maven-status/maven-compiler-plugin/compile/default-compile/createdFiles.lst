@@ -1,6 +1,7 @@
 Modelo\dto\Citas.class
 Controladores\ServeletRegistroCitas.class
 com\mycompany\proyectofinal\resources\JakartaEE8Resource.class
+Controladores\ServeletRegistroPaciente.class
 Modelo\dto\LibroReclamaciones.class
 Modelo\dao\CitasDAO.class
 Modelo\dao\PacientesDAO.class

@@ -192,6 +192,20 @@
             </div>
         </footer>
 
+        <%
+            String mensaje= (String) session.getAttribute("mensajeCita");
+            
+            if(mensaje!=null){%>
+            <script>
+                window.onload=function (){
+                    alert(<%=mensaje%>);
+                }                
+            </script>                
+            <%
+                session.removeAttribute("mensajeCita");
+            }
+        %>
+        
         <script>
             // menu de moviles toggle
             const mobileBtn = document.getElementById('mobile-menu-btn');
@@ -243,7 +257,9 @@
         dniInput.addEventListener('wheel', function(event) {
             event.preventDefault();
         });
-
+        
+        
+        
         </script>
     </body>
 </html>

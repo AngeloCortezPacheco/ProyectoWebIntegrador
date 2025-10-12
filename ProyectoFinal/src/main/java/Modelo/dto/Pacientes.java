@@ -1,16 +1,18 @@
 package Modelo.dto;
 
+import java.sql.Date;
+
 public class Pacientes {
     private int idPaciente;
     private String Nombre;
     private String domicilio;
-    private String fechaNacimiento;
+    private Date fechaNacimiento;
     private String Genero;
     private String Email;
     private String Telefono;
     private String CondicionMedica;
 
-    public Pacientes(int idPaciente, String Nombre, String domicilio, String fechaNacimiento, String Genero, String Email, String Telefono, String CondicionMedica) {
+    public Pacientes(int idPaciente, String Nombre, String domicilio, Date fechaNacimiento, String Genero, String Email, String Telefono, String CondicionMedica) {
         this.idPaciente = idPaciente;
         this.Nombre = Nombre;
         this.domicilio = domicilio;
@@ -20,6 +22,10 @@ public class Pacientes {
         this.Telefono = Telefono;
         this.CondicionMedica = CondicionMedica;
     }
+
+    public Pacientes() {
+    }    
+    
 
     public String getDomicilio() {
         return domicilio;
@@ -53,11 +59,11 @@ public class Pacientes {
         this.Nombre = Nombre;
     }
     
-    public String getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
