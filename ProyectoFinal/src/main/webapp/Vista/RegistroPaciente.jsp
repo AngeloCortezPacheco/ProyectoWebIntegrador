@@ -89,7 +89,7 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-blue-600">Formulario de Registro de Paciente</h2>
                 <div class="form-container max-w-3xl mx-auto bg-white p-8">
-                    <form id="patientRegistrationForm" action="<%=request.getContextPath()%>/ServeletRegistroPaciente">
+                    <form id="patientRegistrationForm" action="<%=request.getContextPath()%>/ServeletRegistroPaciente" method="POST">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">Nombre Completo *</label>

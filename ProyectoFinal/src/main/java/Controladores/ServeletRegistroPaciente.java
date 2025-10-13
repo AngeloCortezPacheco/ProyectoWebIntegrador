@@ -4,13 +4,17 @@
  */
 package Controladores;
 
+import Modelo.dao.PacientesDAO;
+import Modelo.dto.Pacientes;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -81,6 +85,37 @@ public class ServeletRegistroPaciente extends HttpServlet {
         String ubicacion=request.getParameter("ubicacion");
         String historial=request.getParameter("historialMedico");
         
+        Date fechaSQL = Date.valueOf(fecha); // Convierte "yyyy-MM-dd" a un objeto Date
+        
+        
+        if (dniStr == null || dniStr.trim().length() != 8) {
+            // Si el DNI es inválido, redirigimos a una página de error
+            response.sendRedirect("error.jsp?msg=DNI_invalido");
+            return;
+        };
+        
+        int dniPaciente=Integer.parseInt(dniStr);
+
+
+        Pacientes nuevoPaciente = new Pacientes();
+        nuevoPaciente.setIdPaciente(dniPaciente);
+        nuevoPaciente.setNombre(nombrePaciente);
+        nuevoPaciente.setFechaNacimiento(fechaSQL);
+        nuevoPaciente.setGenero(genero);
+        nuevoPaciente.setTelefono(telefono);
+        nuevoPaciente.setEmail(mail);
+        nuevoPaciente.setDomicilio(ubicacion);
+        nuevoPaciente.setCondicionMedica(historial);
+        
+        PacientesDAO pacienteDAO=new PacientesDAO();
+        pacienteDAO.insertPost(nuevoPaciente);
+        
+        HttpSession session=request.getSession();
+        
+        session.setAttribute("mensajeCita", "SU CUENTA FUE GUARDADA CORRECTAMENTE");
+        
+        response.sendRedirect(request.getContextPath() + "/Vista/PaginaPrincipal.jsp");
+
     }
 
     /**

@@ -14,16 +14,18 @@ public class Citas {
     private Date fechaCita;
     private Time horaCita;
     private String text;
+    private String estado;
 
     public Citas() {
     }
     
-    public Citas(int idCItas, String Paciente, Date fechaCita, Time horaCita, String text) {
+    public Citas(int idCItas, String Paciente, Date fechaCita, Time horaCita, String text, String estado) {
         this.idCItas = idCItas;
         this.Paciente = Paciente;
         this.fechaCita = fechaCita;
         this.horaCita = horaCita;
         this.text = text;
+        this.estado=estado;
     }
 
     public Citas(int dniPaciente, Date fechaCita, Time horaCita, String text) {
@@ -80,9 +82,13 @@ public class Citas {
     public void setDniPaciente(int dniPaciente) {
         this.dniPaciente = dniPaciente;
     }
-    
-    
 
-    
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
     
 }

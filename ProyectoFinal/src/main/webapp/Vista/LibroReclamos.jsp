@@ -100,31 +100,31 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-blue-600">Libro de Reclamaciones</h2>
                 <div class="form-container max-w-3xl mx-auto bg-white p-8">
-                    <form id="appointmentForm">
+                    <form id="appointmentForm" action="<%=request.getContextPath()%>/ServeletRegistroPaciente" method="POST">
                         <h3 style="font-size: 20px; margin-bottom: 20px; font-style: solid; font-weight: bold">Identificación del consumidor reclamante</h3>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Nombre Completo</label>
-                            <input type="text" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="text" name="nombreCompleto" id="fullName" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Domicilio</label>
-                            <input type="text" id="domicilio" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="text" name="Domicilio" id="domicilio" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">DNI/CE</label>
-                            <input type="number" id="dni" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="number" name="id" id="dni" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Teléfono</label>
-                            <input type="tel" id="telefono" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="tel" name="telefono" id="telefono" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                            <input type="email" id="correo" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="email" name="mail" id="correo" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <h3 style="font-size: 20px; margin-top: 20px; font-style: solid; font-weight: bold">Detalles del Reclamo</h3>
                         <div class="mt-6">
-                            <textarea id="reason" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="3" required></textarea>
+                            <textarea name="razonReclamo" id="reason" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="3" required></textarea>
                         </div>
                         <button type="submit" class="btn-primary text-white px-8 py-3 rounded-full mt-8 w-full text-lg font-semibold">Enviar Reclamo</button>
                     </form>
