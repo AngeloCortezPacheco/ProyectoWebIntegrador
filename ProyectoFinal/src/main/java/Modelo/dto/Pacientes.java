@@ -11,6 +11,7 @@ public class Pacientes {
     private String Email;
     private String Telefono;
     private String CondicionMedica;
+    private String Contraseña;
 
     public Pacientes(int idPaciente, String Nombre, String domicilio, Date fechaNacimiento, String Genero, String Email, String Telefono, String CondicionMedica) {
         this.idPaciente = idPaciente;
@@ -25,8 +26,15 @@ public class Pacientes {
 
     public Pacientes() {
     }    
-    
 
+    public String getContraseña() {
+        return Contraseña;
+    }
+
+    public void setContraseña(String Contraseña) {
+        this.Contraseña = Contraseña;
+    }
+    
     public String getDomicilio() {
         return domicilio;
     }

@@ -1,6 +1,7 @@
 package Modelo.dao;
 
 import Modelo.dto.Pacientes;
+import Servicios.ConectaDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,8 @@ public class PacientesDAO {
     ResultSet rs;
     
      public void insertPost(Pacientes paciente){
-        String sql="INSERT INTO pacientes(dniPaciente,nombre,fechanacimiento,genero,telefono,mail,domicilio,condicionesmedicas) VALUES(?,?,?,?,?,?,?,?)";
+        cnx=ConectaDB.getConection();
+        String sql="INSERT INTO pacientes(dniPaciente,nombre,fechanacimiento,genero,telefono,mail,domicilio,condicionesmedicas,contraseña) VALUES(?,?,?,?,?,?,?,?,?)";
         
         try{
             ps=cnx.prepareStatement(sql);
@@ -24,6 +26,7 @@ public class PacientesDAO {
             ps.setString(6, paciente.getEmail());
             ps.setString(7, paciente.getDomicilio());
             ps.setString(8, paciente.getCondicionMedica());
+            ps.setString(9, paciente.getContraseña());
             ps.executeUpdate();
             System.out.println("registrado");
         }catch(SQLException ex){    

@@ -4,11 +4,10 @@
  */
 package Controladores;
 
-import Modelo.dao.PacientesDAO;
-import Modelo.dto.Pacientes;
+import Modelo.dao.LibroReclamacionesDAO;
+import Modelo.dto.LibroReclamaciones;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author EQUIPO
  */
-@WebServlet(name = "ServeletRegistroPaciente", urlPatterns = {"/ServeletRegistroPaciente"})
-public class ServeletRegistroPaciente extends HttpServlet {
+@WebServlet(name = "ServeletRegistroLibroReclamos", urlPatterns = {"/ServeletRegistroLibroReclamos"})
+public class ServeletRegistroLibroReclamos extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class ServeletRegistroPaciente extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServeletRegistroPaciente</title>");
+            out.println("<title>Servlet ServeletRegistroLibroReclamos</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServeletRegistroPaciente at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServeletRegistroLibroReclamos at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -76,49 +75,33 @@ public class ServeletRegistroPaciente extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String nombrePaciente=request.getParameter("nombreCompleto");
-        String dniStr=request.getParameter("dniPaciente");
-        String fecha=request.getParameter("fechaNacimiento");
-        String genero=request.getParameter("genero");
-        String telefono=request.getParameter("telefonoPaciente");
-        String mail=request.getParameter("mailPaciente");
-        String ubicacion=request.getParameter("ubicacion");
-        String historial=request.getParameter("historialMedico");
-        String contraseña=request.getParameter("password");
-        
-        Date fechaSQL = Date.valueOf(fecha); // Convierte "yyyy-MM-dd" a un objeto Date
-        
-        
-        if (dniStr == null || dniStr.trim().length() != 8) {
-            // Si el DNI es inválido, redirigimos a una página de error
-            response.sendRedirect("error.jsp?msg=DNI_invalido");
-            return;
-        };
-        
+        String nombreCliente=request.getParameter("nombreCompleto");
+        String dniStr=request.getParameter("dniLR");
+        String telefono=request.getParameter("telefonoLR");
+        String mail=request.getParameter("mailLR");
+        String ubicacion=request.getParameter("Domicilio");
+        String razon=request.getParameter("razonReclamo");
+                        
         int dniPaciente=Integer.parseInt(dniStr);
 
 
-        Pacientes nuevoPaciente = new Pacientes();
-        nuevoPaciente.setIdPaciente(dniPaciente);
-        nuevoPaciente.setNombre(nombrePaciente);
-        nuevoPaciente.setFechaNacimiento(fechaSQL);
-        nuevoPaciente.setGenero(genero);
-        nuevoPaciente.setTelefono(telefono);
-        nuevoPaciente.setEmail(mail);
-        nuevoPaciente.setDomicilio(ubicacion);
-        nuevoPaciente.setCondicionMedica(historial);
-        nuevoPaciente.setContraseña(contraseña);
+        LibroReclamaciones nuevoReclamo = new LibroReclamaciones();
+        nuevoReclamo.setDni(dniPaciente);
+        nuevoReclamo.setNombre(nombreCliente);
+        nuevoReclamo.setTelefono(telefono);
+        nuevoReclamo.setMail(mail);
+        nuevoReclamo.setDomcilio(ubicacion);
+        nuevoReclamo.setDetalles(razon);
         
                 
-        PacientesDAO pacienteDAO=new PacientesDAO();
-        pacienteDAO.insertPost(nuevoPaciente);
+        LibroReclamacionesDAO pacienteDAO=new LibroReclamacionesDAO();
+        pacienteDAO.postLibroReclamaciones(nuevoReclamo);
         
         HttpSession session=request.getSession();
         
         session.setAttribute("mensajeCita", "SU CUENTA FUE GUARDADA CORRECTAMENTE");
         
         response.sendRedirect(request.getContextPath() + "/Vista/PaginaPrincipal.jsp");
-
     }
 
     /**

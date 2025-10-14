@@ -112,15 +112,15 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">DNI/CE</label>
-                            <input type="number" name="id" id="dni" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="number" name="id" id="dniLR" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Teléfono</label>
-                            <input type="tel" name="telefono" id="telefono" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="tel" name="telefonoLR" id="telefono" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                            <input type="email" name="mail" id="correo" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="email" name="mailLR" id="correo" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <h3 style="font-size: 20px; margin-top: 20px; font-style: solid; font-weight: bold">Detalles del Reclamo</h3>
                         <div class="mt-6">

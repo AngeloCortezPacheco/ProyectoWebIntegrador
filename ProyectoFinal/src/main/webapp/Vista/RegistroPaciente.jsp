@@ -120,6 +120,10 @@
                                 <label class="block text-sm font-medium text-gray-700">Correo Electrónico *</label>
                                 <input type="email" name="mailPaciente" id="email" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                             </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Contraseña *</label>
+                                <input type="password" name="password" id="password" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            </div>
                             <div class="md:col-span-2">
                                 <label class="block text-sm font-medium text-gray-700">Dirección Completa</label>
                                 <textarea id="address" name="ubicacion" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" rows="2" placeholder="Incluye calle, número, distrito y ciudad"></textarea>

@@ -27,7 +27,11 @@ public class LibroReclamaciones {
         this.mail = mail;
         this.detalles = detalles;
     }    
+
+    public LibroReclamaciones() {
+    }
     
+       
 
     public int getIdreclamo() {
         return idreclamo;
