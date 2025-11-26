@@ -1,5 +1,8 @@
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@include file="verificarSesion.jsp" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -55,6 +58,14 @@
             .btn-primary:hover {
                 box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
             }
+            /* Estilos adicionales para el menú desplegable de usuario */
+            .user-menu {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            .user-menu.hidden {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
         </style>
     </head>
     <body class="text-gray-800">
@@ -67,6 +78,21 @@
                     <li><a href="LibroReclamos.jsp" class="hover:text-blue-600">Libro de Reclamos</a></li>
                     <li><a href="PreguntasFrecuentes.jsp" class="hover:text-blue-600">Preguntas Frecuentes</a></li>
                 </ul>
+                <!-- Botón para menú de usuario en escritorio -->
+                <div class="relative hidden md:block">
+                    <button id="user-menu-btn" class="focus:outline-none text-blue-600 hover:text-blue-800">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </button>
+                    <!-- Menú desplegable de opciones de usuario -->
+                    <div id="user-menu" class="user-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                        <ul class="py-1">
+                            <li><a href="VistaCitas.jsp" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Revisar Citas</a></li>
+                            <li><a href="Logout.jsp" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -78,6 +104,15 @@
                     <li><a href="PaginaPrincipal.jsp" class="block hover:text-blue-600">Inicio</a></li>
                     <li><a href="LibroReclamos.jsp" class="block hover:text-blue-600">Libro de Reclamos</a></li>
                     <li><a href="PreguntasFrecuentes.jsp" class="block hover:text-blue-600">Preguntas Frecuentes</a></li>
+                    <!-- Sección de opciones de usuario en menú móvil -->
+                    <li class="border-t pt-2">
+                        <span class="block font-semibold text-gray-700">Opciones de Usuario</span>
+                        <ul class="ml-4 space-y-1 mt-1">
+                            <li><a href="Perfil.jsp" class="block hover:text-blue-600">Perfil</a></li>
+                            <li><a href="Configuracion.jsp" class="block hover:text-blue-600">Configuración</a></li>
+                            <li><a href="Logout.jsp" class="block hover:text-blue-600">Cerrar Sesión</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -212,6 +247,13 @@
             const mobileMenu = document.getElementById('mobile-menu');
             mobileBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
+            });
+
+            // Toggle para el menú de usuario en escritorio
+            const userMenuBtn = document.getElementById('user-menu-btn');
+            const userMenu = document.getElementById('user-menu');
+            userMenuBtn.addEventListener('click', () => {
+                userMenu.classList.toggle('hidden');
             });
 
             // Smooth scrolling

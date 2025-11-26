@@ -4,12 +4,15 @@ D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\s
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dao\PacientesDAO.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Servicios\ConectaDB.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dto\Pacientes.java
+D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Controladores\ServeletRegistroLibroReclamos.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dto\LibroReclamaciones.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\com\mycompany\proyectofinal\JakartaRestConfiguration.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\com\mycompany\proyectofinal\resources\JakartaEE8Resource.java
+D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Controladores\ServeletLogIn.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dao\EspecialidadesDAO.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dao\LibroReclamacionesDAO.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dao\DoctoresDAO.java
+D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Controladores\ServeletLogOut.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Controladores\ServeletRegistroPaciente.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Modelo\dto\Especialidades.java
 D:\Users\EQUIPO\Documents\NetBeansProjects\ProyectoWebIntegrador\ProyectoFinal\src\main\java\Controladores\ServeletRegistroCitas.java

@@ -94,8 +94,8 @@ public class ServeletRegistroLibroReclamos extends HttpServlet {
         nuevoReclamo.setDetalles(razon);
         
                 
-        LibroReclamacionesDAO pacienteDAO=new LibroReclamacionesDAO();
-        pacienteDAO.postLibroReclamaciones(nuevoReclamo);
+        LibroReclamacionesDAO reclamo=new LibroReclamacionesDAO();
+        reclamo.postLibroReclamaciones(nuevoReclamo);
         
         HttpSession session=request.getSession();
         

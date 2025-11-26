@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@include file="verificarSesion.jsp" %>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -100,7 +102,7 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-semibold text-center mb-8 text-blue-600">Libro de Reclamaciones</h2>
                 <div class="form-container max-w-3xl mx-auto bg-white p-8">
-                    <form id="appointmentForm" action="<%=request.getContextPath()%>/ServeletRegistroPaciente" method="POST">
+                    <form id="appointmentForm" action="<%=request.getContextPath()%>/ServeletRegistroLibroReclamos" method="POST">
                         <h3 style="font-size: 20px; margin-bottom: 20px; font-style: solid; font-weight: bold">Identificación del consumidor reclamante</h3>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Nombre Completo</label>
@@ -112,7 +114,7 @@
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">DNI/CE</label>
-                            <input type="number" name="id" id="dniLR" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
+                            <input type="number" name="dniLR" id="id" class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:border-blue-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Teléfono</label>
@@ -159,12 +161,6 @@
                         behavior: 'smooth'
                     });
                 });
-            });
-
-            // Form submission
-            document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('¡Cita reservada exitosamente! Te contactaremos pronto con la confirmación.');
             });
 
             // Fade in animation on scroll
