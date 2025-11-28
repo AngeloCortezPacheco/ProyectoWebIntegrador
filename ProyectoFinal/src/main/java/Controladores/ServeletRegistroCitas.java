@@ -3,7 +3,6 @@ package Controladores;
 import Modelo.dao.CitasDAO;
 import Modelo.dto.Citas;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.sql.Time;
 import javax.servlet.ServletException;
@@ -16,97 +15,100 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ServeletRegistroCitas", urlPatterns = {"/ServeletRegistroCitas"})
 public class ServeletRegistroCitas extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServeletRegistroCitas</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServeletRegistroCitas at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // Si acceden por GET, redirigir al formulario
+        response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         
-        String nombreCompleto = request.getParameter("fullname");
-        String telefono = request.getParameter("telefono");
-        String mail = request.getParameter("mail");
-        String fechaCita = request.getParameter("fechacita");
-        String horaCita = request.getParameter("horacita");
-        String dniStr = request.getParameter(request.getParameter("dni"));
-        String motivoCita = request.getParameter("razon");
-
-        Date fechaSQL = Date.valueOf(fechaCita); // Convierte "yyyy-MM-dd" a un objeto Date
-        Time horaSQL = Time.valueOf(horaCita + ":00"); // Convierte "HH:mm" a "HH:mm:ss" y luego a un objeto Time
-    
+        // Configurar encoding para caracteres especiales
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         
-        if (dniStr == null || dniStr.trim().length() != 8) {
-            // Si el DNI es inválido, redirigimos a una página de error
-            response.sendRedirect("error.jsp?msg=DNI_invalido");
-            return;
-        };
+        HttpSession session = request.getSession();
         
-        int dniPaciente=Integer.parseInt(dniStr);
-
-
-        Citas nuevaCita = new Citas();
-        nuevaCita.setDniPaciente(dniPaciente);
-        nuevaCita.setFechaCita(fechaSQL);
-        nuevaCita.setHoraCita(horaSQL);
-        nuevaCita.setText(motivoCita);
-        
-        CitasDAO citaDAO=new CitasDAO();
-        citaDAO.postCitas(nuevaCita);
-        
-        HttpSession session=request.getSession();
-        
-        session.setAttribute("mensajeCita", "LA CITA FUE GUARDADA CORRECTAMENTE");
-        
-        response.sendRedirect(request.getContextPath() + "/Vista/PaginaPrincipal.jsp");
-
+        try {
+            // Obtener parámetros del formulario
+            String nombreCompleto = request.getParameter("fullname");
+            String telefono = request.getParameter("telefono");
+            String mail = request.getParameter("mail");
+            String fechaCita = request.getParameter("fechacita");
+            String horaCita = request.getParameter("horacita");
+            String dniStr = request.getParameter("dni"); // ✅ CORREGIDO
+            String motivoCita = request.getParameter("razon");
+            
+            System.out.println("=== DATOS RECIBIDOS ===");
+            System.out.println("Nombre: " + nombreCompleto);
+            System.out.println("DNI: " + dniStr);
+            System.out.println("Fecha: " + fechaCita);
+            System.out.println("Hora: " + horaCita);
+            
+            // Validar que no estén vacíos los campos esenciales
+            if (dniStr == null || dniStr.trim().isEmpty() ||
+                fechaCita == null || fechaCita.trim().isEmpty() ||
+                horaCita == null || horaCita.trim().isEmpty() ||
+                motivoCita == null || motivoCita.trim().isEmpty()) {
+                
+                session.setAttribute("mensajeCita", "Por favor, complete todos los campos obligatorios del formulario");
+                response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
+                return;
+            }
+            
+            // Validar DNI
+            if (dniStr.trim().length() != 8) {
+                session.setAttribute("mensajeCita", "El DNI debe tener exactamente 8 dígitos");
+                response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
+                return;
+            }
+            
+            int dniPaciente;
+            try {
+                dniPaciente = Integer.parseInt(dniStr.trim());
+            } catch (NumberFormatException e) {
+                session.setAttribute("mensajeCita", "El DNI debe contener solo números");
+                response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
+                return;
+            }
+            
+            // Convertir fecha y hora
+            Date fechaSQL = Date.valueOf(fechaCita); // yyyy-MM-dd
+            Time horaSQL = Time.valueOf(horaCita + ":00"); // HH:mm:ss
+            
+            // Crear objeto Cita usando tu constructor existente
+            Citas nuevaCita = new Citas(dniPaciente, fechaSQL, horaSQL, motivoCita);
+            
+            // Guardar en base de datos
+            CitasDAO citaDAO = new CitasDAO();
+            citaDAO.postCitas(nuevaCita);
+            
+            session.setAttribute("mensajeCita", "SU CITA FUE GUARDADA CORRECTAMENTE");
+            System.out.println("Cita registrada exitosamente para DNI: " + dniPaciente);
+            
+            response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
+            
+        } catch (IllegalArgumentException e) {
+            // Error en formato de fecha/hora
+            System.err.println("Error en formato de fecha/hora: " + e.getMessage());
+            e.printStackTrace();
+            session.setAttribute("mensajeCita", "Formato de fecha u hora inválido. Use el formato correcto.");
+            response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
+            
+        } catch (Exception e) {
+            // Error general
+            System.err.println("Error al registrar cita: " + e.getMessage());
+            e.printStackTrace();
+            session.setAttribute("mensajeCita", "Error del sistema. Por favor, intente más tarde.");
+            response.sendRedirect(request.getContextPath() + "/Vista/Citas.jsp");
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Servlet para registrar citas médicas";
+    }
 }
