@@ -54,7 +54,7 @@ public class ServeletLogOut extends HttpServlet {
         nuevaSesion.setAttribute("mensajeLogin", "Sesión cerrada exitosamente");
         
         // Redirigir al login
-        response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+        response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
     }
     
     @Override

@@ -173,7 +173,7 @@
                         </div>
                         <button type="submit" class="btn-primary text-white px-8 py-3 rounded-full mt-8 w-full text-lg font-semibold">Registrarse</button>
                         <div class="mt-4 text-center">
-                            <a href="Login.jsp" class="text-blue-600 hover:underline">¿Ya tienes cuenta? Inicia sesión aquí</a>
+                            <a href="LogIn.jsp" class="text-blue-600 hover:underline">¿Ya tienes cuenta? Inicia sesión aquí</a>
                         </div>
                     </form>
                 </div>

@@ -34,7 +34,7 @@ public class ServeletLogIn extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Redirigir al login si acceden por GET
-        response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+        response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
     }
     
     @Override
@@ -55,7 +55,7 @@ public class ServeletLogIn extends HttpServlet {
             
             HttpSession session = request.getSession();
             session.setAttribute("mensajeLogin", "Por favor, complete todos los campos");
-            response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
             return;
         }
         
@@ -106,7 +106,7 @@ public class ServeletLogIn extends HttpServlet {
                 session.setAttribute("mensajeLogin", "Email/DNI o contraseña incorrectos. Por favor, intente nuevamente.");
                 
                 System.out.println("Login fallido para: " + username);
-                response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+                response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
             }
             
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public class ServeletLogIn extends HttpServlet {
             
             HttpSession session = request.getSession();
             session.setAttribute("mensajeLogin", "Error del sistema. Por favor, intente más tarde.");
-            response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
         }
     }
     

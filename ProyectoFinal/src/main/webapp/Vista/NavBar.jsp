@@ -64,12 +64,12 @@
                         <li><a href="<%=request.getContextPath()%>/Vista/Citas.jsp" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">📅 Reservar Cita</a></li>
                         <li><a href="<%=request.getContextPath()%>/Vista/VistaCitas.jsp" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">📋 Revisar Citas</a></li>
                         <li><hr class="my-1"></li>
-                        <li><a href="<%=request.getContextPath()%>/ServletLogout" class="block px-4 py-2 text-red-600 hover:bg-red-50">🚪 Cerrar Sesión</a></li>
+                        <li><a href="<%=request.getContextPath()%>/ServeletLogOut" class="block px-4 py-2 text-red-600 hover:bg-red-50">🚪 Cerrar Sesión</a></li>
                     </ul>
                 </div>
             <% } else { %>
                 <!-- Usuario NO LOGUEADO: Mostrar botón de login -->
-                <a href="<%=request.getContextPath()%>/Vista/Login.jsp" 
+                <a href="<%=request.getContextPath()%>/Vista/LogIn.jsp" 
                    class="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
@@ -101,11 +101,11 @@
                     <ul class="ml-4 space-y-1 mt-1">
                         <li><a href="<%=request.getContextPath()%>/Vista/Citas.jsp" class="block hover:text-blue-600">📅 Reservar Cita</a></li>
                         <li><a href="<%=request.getContextPath()%>/Vista/VistaCitas.jsp" class="block hover:text-blue-600">📋 Revisar Citas</a></li>
-                        <li><a href="<%=request.getContextPath()%>/ServletLogout" class="block text-red-600 hover:text-red-800">🚪 Cerrar Sesión</a></li>
+                        <li><a href="<%=request.getContextPath()%>/Controladores/ServeletLogOut" class="block text-red-600 hover:text-red-800">🚪 Cerrar Sesión</a></li>
                     </ul>
                 <% } else { %>
                     <!-- Usuario NO LOGUEADO en móvil -->
-                    <a href="<%=request.getContextPath()%>/Vista/Login.jsp" 
+                    <a href="<%=request.getContextPath()%>/Vista/LogIn.jsp" 
                        class="block bg-blue-600 text-white px-4 py-2 rounded-lg text-center hover:bg-blue-700 transition">
                         Iniciar Sesión
                     </a>

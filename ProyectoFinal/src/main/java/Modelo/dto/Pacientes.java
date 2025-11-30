@@ -3,7 +3,7 @@ package Modelo.dto;
 import java.sql.Date;
 
 public class Pacientes {
-    private int idPaciente;
+    private Integer idPaciente;
     private String Nombre;
     private String domicilio;
     private Date fechaNacimiento;
@@ -13,7 +13,7 @@ public class Pacientes {
     private String CondicionMedica;
     private String Contraseña;
 
-    public Pacientes(int idPaciente, String Nombre, String domicilio, Date fechaNacimiento, String Genero, String Email, String Telefono, String CondicionMedica) {
+    public Pacientes(Integer idPaciente, String Nombre, String domicilio, Date fechaNacimiento, String Genero, String Email, String Telefono, String CondicionMedica) {
         this.idPaciente = idPaciente;
         this.Nombre = Nombre;
         this.domicilio = domicilio;
@@ -51,7 +51,7 @@ public class Pacientes {
         this.CondicionMedica = CondicionMedica;
     }
    
-    public int getIdPaciente() {
+    public Integer getIdPaciente() {
         return idPaciente;
     }
 

@@ -60,35 +60,8 @@
         </style>
     </head>
     <body class="text-gray-800">
-        <!-- Navigation -->
-        <nav class="navbar sticky top-0 z-50 shadow-md">
-            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-                <a href="PaginaPrincipal.jsp" class="text-2xl font-bold text-blue-600">Hospital San Jose</a>
-                <ul class="hidden md:flex space-x-6">
-                    <li><a href="#about" class="hover:text-blue-600 letras">Acerca de</a></li>
-                    <li><a href="#services" class="hover:text-blue-600 letras">Servicios</a></li>
-                    <li><a href="Citas.jsp" class="hover:text-blue-600 letras">Reservar Cita</a></li>
-                    <li><a href="LibroReclamos.jsp" class="hover:text-blue-600 letras">Libro de Reclamos</a></li>   
-                    <li><a href="#contact" class="hover:text-blue-600 letras">Contacto</a></li>
-                    <li><a href="PreguntasFrecuentes.jsp" class="hover:text-blue-600 letras">Preguntas Frecuentes</a></li>
-                </ul>
-                <button id="mobile-menu-btn" class="md:hidden focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </button>
-            </div>
-            <div id="mobile-menu" class="hidden md:hidden bg-white py-2">
-                <ul class="space-y-2 px-4">
-                    <li><a href="#about" class="block hover:text-blue-600">Acerca de</a></li>
-                    <li><a href="#services" class="block hover:text-blue-600">Servicios</a></li>
-                    <li><a href="Citas.jsp" class="block hover:text-blue-600">Reservar Cita</a></li>
-                    <li><a href="LibroReclamos.jsp" class="block hover:text-blue-600">Libro de Reclamos</a></li>
-                    <li><a href="#contact" class="block hover:text-blue-600">Contacto</a></li>
-                    <li><a href="PreguntasFrecuentes.jsp" class="block hover:text-blue-600">Preguntas Frecuentes</a></li>
-                </ul>
-            </div>
-        </nav>
+        <%-- Incluir navbar adaptativa --%>
+        <%@include file="NavBar.jsp" %>
 
         <!-- Hero Section -->
         <section class="hero-bg text-white py-20">
