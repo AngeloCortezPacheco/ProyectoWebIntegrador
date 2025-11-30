@@ -13,7 +13,7 @@ public class CitasDAO {
         
     public List<Citas> getList(){
         Connection cnx=ConectaDB.getConection();
-        String sql= "SELECT cit.idcitas, pac.nombre as NombrePaciente, cit.fecha_cita, cit.hora_cita, cit.motivo_cita, est.estado as Estado" +
+        String sql= "SELECT cit.idcitas, pac.nombre as NombrePaciente, cit.fecha_cita, cit.hora_cita, cit.motivo_cita, est.estado as Estado " +
                     "FROM citas cit " +
                     "INNER JOIN pacientes pac on cit.dniPaciente = pac.dniPaciente "+
                     "INNER JOIN estado est ON cit.idestado = est.idestado" ;

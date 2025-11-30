@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "ServletVistaCitas", urlPatterns = {"/ServletVistaCitas"})
+@WebServlet(name = "ServeletVistaCitas", urlPatterns = {"/ServeletVistaCitas"})
 public class ServeletVistaCitas extends HttpServlet {
     
     private static final String MICROSERVICE_URL = "http://localhost:8083/citas/paciente/";
@@ -33,77 +33,114 @@ public class ServeletVistaCitas extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        System.out.println("\n═══════════════════════════════════════════════════");
+        System.out.println("🚀 ServeletVistaCitas - INICIO DE EJECUCIÓN");
+        System.out.println("═══════════════════════════════════════════════════");
+        
         HttpSession session = request.getSession(false);
         
         // Verificar que el usuario esté logueado
         if (session == null || session.getAttribute("usuarioLogueado") == null) {
+            System.out.println("⚠️ Usuario NO logueado - Redirigiendo a Login");
             session = request.getSession(true);
             session.setAttribute("mensajeLogin", "Debe iniciar sesión para ver sus citas");
-            response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
             return;
         }
         
-        // Obtener el DNI del paciente de la sesión
+        // Obtener datos del paciente de la sesión
         Integer dniPaciente = (Integer) session.getAttribute("dniPaciente");
+        String nombrePaciente = (String) session.getAttribute("nombrePaciente");
+        
+        System.out.println("👤 DNI del paciente: " + dniPaciente);
+        System.out.println("📝 Nombre del paciente: " + nombrePaciente);
         
         if (dniPaciente == null) {
+            System.err.println("❌ ERROR: dniPaciente es NULL");
             session.setAttribute("mensajeLogin", "No se pudo identificar su cuenta");
-            response.sendRedirect(request.getContextPath() + "/Vista/Login.jsp");
+            response.sendRedirect(request.getContextPath() + "/Vista/LogIn.jsp");
             return;
+        }
+        
+        // Si no hay nombre, usar un valor por defecto
+        if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
+            nombrePaciente = "Usuario";
         }
         
         try {
+            System.out.println("\n🔄 Intentando obtener citas del microservicio...");
+            
             // Consumir el microservicio
             List<Map<String, String>> citas = obtenerCitasDesdeAPI(dniPaciente);
             
-            // Debug: Imprimir cantidad de citas encontradas
             System.out.println("✅ Total de citas obtenidas: " + citas.size());
             
-            // Enviar datos al JSP
+            // Enviar TODOS los datos al JSP
             request.setAttribute("citas", citas);
             request.setAttribute("totalCitas", citas.size());
+            request.setAttribute("dniPaciente", dniPaciente);
+            request.setAttribute("nombrePaciente", nombrePaciente);
+            
+            System.out.println("📤 Datos enviados al JSP:");
+            System.out.println("   - citas: " + citas.size() + " elementos");
+            System.out.println("   - totalCitas: " + citas.size());
+            System.out.println("   - dniPaciente: " + dniPaciente);
+            System.out.println("   - nombrePaciente: " + nombrePaciente);
+            System.out.println("\n🎯 Haciendo forward a VistaCitas.jsp...");
             
             // Forward al JSP
             request.getRequestDispatcher("/Vista/VistaCitas.jsp").forward(request, response);
             
+            System.out.println("✅ Forward completado exitosamente");
+            
         } catch (Exception e) {
-            System.err.println("❌ Error al obtener citas del microservicio: " + e.getMessage());
+            System.err.println("\n❌❌❌ ERROR AL OBTENER CITAS ❌❌❌");
+            System.err.println("Tipo de error: " + e.getClass().getName());
+            System.err.println("Mensaje: " + e.getMessage());
+            System.err.println("StackTrace:");
             e.printStackTrace();
             
             request.setAttribute("error", "Error al cargar las citas: " + e.getMessage());
             request.setAttribute("citas", new ArrayList<>());
             request.setAttribute("totalCitas", 0);
+            request.setAttribute("dniPaciente", dniPaciente);
+            request.setAttribute("nombrePaciente", nombrePaciente);
+            
+            System.out.println("\n⚠️ Enviando página con error al usuario...");
             request.getRequestDispatcher("/Vista/VistaCitas.jsp").forward(request, response);
         }
+        
+        System.out.println("═══════════════════════════════════════════════════");
+        System.out.println("🏁 ServeletVistaCitas - FIN DE EJECUCIÓN");
+        System.out.println("═══════════════════════════════════════════════════\n");
     }
     
     /**
      * Método para consumir el API REST del microservicio
-     * @param dniPaciente DNI del paciente
-     * @return Lista de citas
      */
     private List<Map<String, String>> obtenerCitasDesdeAPI(Integer dniPaciente) throws IOException {
         List<Map<String, String>> citasList = new ArrayList<>();
         
-        // Construir URL
         String urlString = MICROSERVICE_URL + dniPaciente;
+        
+        System.out.println("\n🌐 Configurando conexión HTTP...");
+        System.out.println("   URL: " + urlString);
+        
         URL url = new URL(urlString);
-        
-        System.out.println("🌐 Consumiendo API: " + urlString);
-        
-        // Abrir conexión
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/json");
         conn.setConnectTimeout(5000);
         conn.setReadTimeout(5000);
         
-        // Verificar respuesta
+        System.out.println("📡 Enviando petición GET...");
+        
         int responseCode = conn.getResponseCode();
-        System.out.println("📡 Response Code: " + responseCode);
+        System.out.println("📥 Response Code: " + responseCode);
         
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            // Leer respuesta
+            System.out.println("✅ Conexión exitosa - Leyendo respuesta...");
+            
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
             String inputLine;
             StringBuilder responseBody = new StringBuilder();
@@ -114,53 +151,69 @@ public class ServeletVistaCitas extends HttpServlet {
             in.close();
             
             String jsonResponse = responseBody.toString();
-            System.out.println("📄 Response JSON: " + jsonResponse);
+            System.out.println("📄 Response JSON recibido (" + jsonResponse.length() + " caracteres)");
+            System.out.println("📄 Primeros 200 caracteres: " + 
+                (jsonResponse.length() > 200 ? jsonResponse.substring(0, 200) + "..." : jsonResponse));
             
-            // Parsear JSON con Gson
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(jsonResponse, JsonObject.class);
-            
-            // Verificar si el campo "success" existe y es true
-            if (jsonObject.has("success") && jsonObject.get("success").getAsBoolean()) {
+            try {
+                System.out.println("\n🔧 Parseando JSON con Gson...");
                 
-                // Verificar si existe el array de citas
-                if (jsonObject.has("citas") && jsonObject.get("citas").isJsonArray()) {
-                    JsonArray citasArray = jsonObject.getAsJsonArray("citas");
+                Gson gson = new Gson();
+                JsonObject jsonObject = gson.fromJson(jsonResponse, JsonObject.class);
+                
+                System.out.println("✅ JSON parseado correctamente");
+                System.out.println("   - Tiene 'success': " + jsonObject.has("success"));
+                System.out.println("   - Valor de 'success': " + (jsonObject.has("success") ? jsonObject.get("success").getAsBoolean() : "N/A"));
+                
+                if (jsonObject.has("success") && jsonObject.get("success").getAsBoolean()) {
                     
-                    System.out.println("📋 Procesando " + citasArray.size() + " citas...");
-                    
-                    for (JsonElement element : citasArray) {
-                        JsonObject citaJson = element.getAsJsonObject();
+                    if (jsonObject.has("citas") && jsonObject.get("citas").isJsonArray()) {
+                        JsonArray citasArray = jsonObject.getAsJsonArray("citas");
                         
-                        Map<String, String> cita = new HashMap<>();
+                        System.out.println("📋 Array de citas encontrado: " + citasArray.size() + " elementos");
                         
-                        // Extraer campos con manejo seguro de nulos
-                        cita.put("dni", getStringValue(citaJson, "dniPaciente"));
-                        cita.put("fecha", getStringValue(citaJson, "fechaCitaFormateada"));
-                        cita.put("hora", getStringValue(citaJson, "horaCitaFormateada"));
-                        cita.put("motivo", getStringValue(citaJson, "motivoCita"));
+                        for (int i = 0; i < citasArray.size(); i++) {
+                            JsonElement element = citasArray.get(i);
+                            JsonObject citaJson = element.getAsJsonObject();
+                            
+                            Map<String, String> cita = new HashMap<>();
+                            
+                            cita.put("dni", getStringValue(citaJson, "dniPaciente"));
+                            cita.put("fecha", getStringValue(citaJson, "fechaCitaFormateada"));
+                            cita.put("hora", getStringValue(citaJson, "horaCitaFormateada"));
+                            cita.put("motivo", getStringValue(citaJson, "motivoCita"));
+                            
+                            String estadoOriginal = getStringValue(citaJson, "estadoCita");
+                            String estadoMapeado = mapearEstado(estadoOriginal);
+                            cita.put("estado", estadoMapeado);
+                            
+                            citasList.add(cita);
+                            
+                            System.out.println("   ✔️ Cita #" + (i+1) + ": Fecha=" + cita.get("fecha") + 
+                                             ", Hora=" + cita.get("hora") + 
+                                             ", Estado=" + estadoMapeado + " (orig: " + estadoOriginal + ")");
+                        }
                         
-                        // ⚠️ IMPORTANTE: Mapear el estado correctamente
-                        String estadoOriginal = getStringValue(citaJson, "estadoCita");
-                        cita.put("estado", mapearEstado(estadoOriginal));
+                        System.out.println("✅ Se procesaron " + citasList.size() + " citas correctamente");
                         
-                        citasList.add(cita);
-                        
-                        // Debug de cada cita
-                        System.out.println("   ✔️ Cita agregada - Fecha: " + cita.get("fecha") + 
-                                         ", Estado: " + cita.get("estado"));
+                    } else {
+                        System.out.println("⚠️ No se encontró el array 'citas' en la respuesta");
+                        System.out.println("   Keys disponibles: " + jsonObject.keySet());
                     }
-                    
-                    System.out.println("✅ Se procesaron " + citasList.size() + " citas correctamente");
                 } else {
-                    System.out.println("⚠️ No se encontró el array 'citas' en la respuesta");
+                    System.out.println("❌ La respuesta no contiene success=true");
+                    throw new IOException("La API no retornó success=true");
                 }
-            } else {
-                System.out.println("❌ La respuesta no contiene success=true");
-                throw new IOException("La API no retornó success=true");
+                
+            } catch (Exception parseException) {
+                System.err.println("❌ Error al parsear JSON:");
+                parseException.printStackTrace();
+                throw new IOException("Error al parsear respuesta del microservicio: " + parseException.getMessage());
             }
+            
         } else {
-            // Leer mensaje de error si existe
+            System.err.println("❌ Error HTTP " + responseCode);
+            
             BufferedReader errorReader = new BufferedReader(
                 new InputStreamReader(conn.getErrorStream(), "UTF-8"));
             StringBuilder errorBody = new StringBuilder();
@@ -170,17 +223,14 @@ public class ServeletVistaCitas extends HttpServlet {
             }
             errorReader.close();
             
-            System.err.println("❌ Error HTTP " + responseCode + ": " + errorBody.toString());
-            throw new IOException("Error en la API: HTTP " + responseCode);
+            System.err.println("   Error body: " + errorBody.toString());
+            throw new IOException("Error en la API: HTTP " + responseCode + " - " + errorBody.toString());
         }
         
         conn.disconnect();
         return citasList;
     }
     
-    /**
-     * Método auxiliar para extraer valores String de manera segura
-     */
     private String getStringValue(JsonObject json, String key) {
         if (json.has(key) && !json.get(key).isJsonNull()) {
             JsonElement element = json.get(key);
@@ -191,11 +241,6 @@ public class ServeletVistaCitas extends HttpServlet {
         return "N/A";
     }
     
-    /**
-     * Mapea los estados del API a los estados esperados por el JSP
-     * Tu API retorna: "Desconocido", "Aceptado"
-     * Tu JSP espera: "Pendiente", "Confirmada", "Completada", "Cancelada"
-     */
     private String mapearEstado(String estadoOriginal) {
         if (estadoOriginal == null || estadoOriginal.trim().isEmpty()) {
             return "Pendiente";

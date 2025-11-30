@@ -1,16 +1,26 @@
-<%-- 
-    Document   : VistaCitas
-    Created on : 25 nov. 2025, 3:22:00 p. m.
-    Author     : EQUIPO
-<%@include file="verificarSesion.jsp" %>
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 
-<%-- Verificar sesión --%>
+<%-- Incluir verificación de sesión --%>
 <%@include file="verificarSesion.jsp" %>
+
+<%
+    // FALLBACK: Si verificarSesion.jsp no definió las variables, 
+    // intentar obtenerlas del request (enviadas por el servlet)
+    if (dniPaciente == null) {
+        dniPaciente = (Integer) request.getAttribute("dniPaciente");
+    }
+    if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
+        nombrePaciente = (String) request.getAttribute("nombrePaciente");
+    }
+    
+    // Valores por defecto final
+    if (dniPaciente == null) dniPaciente = 0;
+    if (nombrePaciente == null || nombrePaciente.trim().isEmpty()) {
+        nombrePaciente = "Usuario";
+    }
+%>
 
 <!DOCTYPE html>
 <html lang="es">

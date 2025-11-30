@@ -62,7 +62,7 @@
                 <div id="user-menu" class="user-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
                     <ul class="py-1">
                         <li><a href="<%=request.getContextPath()%>/Vista/Citas.jsp" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">📅 Reservar Cita</a></li>
-                        <li><a href="<%=request.getContextPath()%>/Vista/VistaCitas.jsp" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">📋 Revisar Citas</a></li>
+                        <li><a href="<%=request.getContextPath()%>/ServeletVistaCitas" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">📋 Revisar Citas</a></li>
                         <li><hr class="my-1"></li>
                         <li><a href="<%=request.getContextPath()%>/ServeletLogOut" class="block px-4 py-2 text-red-600 hover:bg-red-50">🚪 Cerrar Sesión</a></li>
                     </ul>
@@ -100,7 +100,7 @@
                     <span class="block font-semibold text-gray-700">Hola, <%= navNombreUsuario %></span>
                     <ul class="ml-4 space-y-1 mt-1">
                         <li><a href="<%=request.getContextPath()%>/Vista/Citas.jsp" class="block hover:text-blue-600">📅 Reservar Cita</a></li>
-                        <li><a href="<%=request.getContextPath()%>/Vista/VistaCitas.jsp" class="block hover:text-blue-600">📋 Revisar Citas</a></li>
+                        <li><a href="<%=request.getContextPath()%>/Controladores/ServeletVistaCitas" class="block hover:text-blue-600">📋 Revisar Citas</a></li>
                         <li><a href="<%=request.getContextPath()%>/Controladores/ServeletLogOut" class="block text-red-600 hover:text-red-800">🚪 Cerrar Sesión</a></li>
                     </ul>
                 <% } else { %>
